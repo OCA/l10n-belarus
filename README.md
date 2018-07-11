@@ -7,6 +7,13 @@
 Odoo Belarusian localization
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[currency_rate_update_by_nbb](currency_rate_update_by_nbb/) | 11.0.1.0.0 | Download currency exchange rates from National Bank Of Belarus
+
 [//]: # (end addons)
 
 ----

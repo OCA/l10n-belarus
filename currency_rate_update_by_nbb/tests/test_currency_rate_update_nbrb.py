@@ -22,35 +22,23 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         cls.company = cls.Company.create({"name": "Test Company"})
         cls.env.user.company_id = cls.company
 
-        # Get or create currencies
-        Currency = cls.env["res.currency"]
-        cls.currency_byn = Currency.search([("name", "=", "BYN")], limit=1)
-        if not cls.currency_byn:
-            cls.currency_byn = Currency.create(
-                {
-                    "name": "BYN",
-                    "symbol": "Br",
-                    "active": True,
-                }
-            )
+        # Get currencies (they should exist in base Odoo)
+        # Use search with sudo() to bypass access rights
+        Currency = cls.env["res.currency"].sudo()
+
+        # Try to get existing currencies, or create them if they don't exist
+        # This handles both cases: fresh DB and DB with currencies loaded
         cls.currency_usd = Currency.search([("name", "=", "USD")], limit=1)
         if not cls.currency_usd:
-            cls.currency_usd = Currency.create(
-                {
-                    "name": "USD",
-                    "symbol": "$",
-                    "active": True,
-                }
-            )
+            cls.currency_usd = Currency.create({"name": "USD", "symbol": "$"})
+
         cls.currency_eur = Currency.search([("name", "=", "EUR")], limit=1)
         if not cls.currency_eur:
-            cls.currency_eur = Currency.create(
-                {
-                    "name": "EUR",
-                    "symbol": "€",
-                    "active": True,
-                }
-            )
+            cls.currency_eur = Currency.create({"name": "EUR", "symbol": "€"})
+
+        cls.currency_byn = Currency.search([("name", "=", "BYN")], limit=1)
+        if not cls.currency_byn:
+            cls.currency_byn = Currency.create({"name": "BYN", "symbol": "Br"})
 
         # Create NBRB provider
         cls.provider = cls.CurrencyRateProvider.create(

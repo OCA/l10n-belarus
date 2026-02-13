@@ -108,7 +108,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
             ]
         )
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_byn_base(self, mock_urlopen):
         """Test obtaining rates with BYN as base currency."""
         # Mock the API response
@@ -120,9 +122,7 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         date_from = date.today()
         date_to = date.today() + timedelta(days=1)
 
-        rates = self.provider._obtain_rates(
-            "BYN", ["USD", "EUR"], date_from, date_to
-        )
+        rates = self.provider._obtain_rates("BYN", ["USD", "EUR"], date_from, date_to)
 
         # Check that rates were returned
         self.assertIsInstance(rates, dict)
@@ -139,7 +139,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         self.assertGreater(eur_rate, 0)
         self.assertLess(usd_rate, 1)  # 1 BYN should be less than 1 USD
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_usd_base(self, mock_urlopen):
         """Test obtaining rates with USD as base currency."""
         # Mock the API response
@@ -151,9 +153,7 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         date_from = date.today()
         date_to = date.today() + timedelta(days=1)
 
-        rates = self.provider._obtain_rates(
-            "USD", ["EUR", "BYN"], date_from, date_to
-        )
+        rates = self.provider._obtain_rates("USD", ["EUR", "BYN"], date_from, date_to)
 
         # Check that rates were returned
         self.assertIsInstance(rates, dict)
@@ -168,7 +168,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         self.assertGreater(byn_rate, 3.0)
         self.assertLess(byn_rate, 4.0)
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_api_error(self, mock_urlopen):
         """Test error handling when API fails."""
         # Mock API failure
@@ -182,7 +184,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
 
         self.assertIn("Error connecting to NBRB API", str(context.exception))
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_invalid_json(self, mock_urlopen):
         """Test error handling when API returns invalid JSON."""
         # Mock invalid JSON response
@@ -197,7 +201,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
 
         self.assertIn("Exchange data format error", str(context.exception))
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_empty_response(self, mock_urlopen):
         """Test error handling when API returns empty list."""
         # Mock empty response
@@ -212,7 +218,9 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
 
         self.assertIn("Exchange data format error", str(context.exception))
 
-    @patch("odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen")
+    @patch(
+        "odoo.addons.currency_rate_update_by_nbb.models.res_currency_rate_provider_nbrb.urlopen"
+    )
     def test_obtain_rates_missing_currency(self, mock_urlopen):
         """Test handling of missing currency in API response."""
         # Mock response without requested currency

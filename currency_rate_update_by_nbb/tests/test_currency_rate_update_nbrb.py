@@ -25,11 +25,15 @@ class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
         # Get currencies using XML IDs
         cls.currency_usd = cls.env.ref("base.USD")
         cls.currency_eur = cls.env.ref("base.EUR")
-        # BYN might not exist, create only if needed
-        cls.currency_byn = cls.env["res.currency"].search([("name", "=", "BYN")])
-        if not cls.currency_byn:
+        # Get or create BYN currency
+        cls.currency_byn = cls.env["res.currency"].with_context(
+            active_test=False
+        ).search([("name", "=", "BYN")], limit=1)
+        if cls.currency_byn:
+            cls.currency_byn.active = True
+        else:
             cls.currency_byn = cls.env["res.currency"].create(
-                {"name": "BYN", "symbol": "Br"}
+                {"name": "BYN", "symbol": "Br", "active": True}
             )
 
         cls.company = cls.Company.create(

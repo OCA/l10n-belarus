@@ -20,7 +20,7 @@ class TestResPartnerBank(TransactionCase):
             }
         )
         cls.bank = cls.env["res.bank"].search(
-            [("bic", "=", "UNBSBY2X")], limit=1
+            [("bic", "=", "AKBBBY2X")], limit=1
         )  # Belarusbank
 
     def test_valid_by_account(self):
@@ -92,12 +92,12 @@ class TestResPartnerBank(TransactionCase):
         self.assertEqual(acc_type, "by_bank")
 
     def test_banks_loaded(self):
-        """Test that Belarus banks are loaded from CSV."""
-        belarusbank = self.env["res.bank"].search([("bic", "=", "UNBSBY2X")])
+        """Test that Belarus banks are loaded from official NBRB data."""
+        belarusbank = self.env["res.bank"].search([("bic", "=", "AKBBBY2X")])
         self.assertTrue(belarusbank, "Belarusbank should be loaded")
-        self.assertEqual(belarusbank.name, "Belarusbank")
+        self.assertEqual(belarusbank.name, "ОАО 'АСБ Беларусбанк'")
         self.assertEqual(belarusbank.country, self.env.ref("base.by"))
 
         # Check that multiple banks are loaded
         by_banks = self.env["res.bank"].search([("country", "=", self.env.ref("base.by").id)])
-        self.assertGreater(len(by_banks), 10, "Should have loaded multiple Belarus banks")
+        self.assertGreater(len(by_banks), 20, "Should have loaded 26 Belarus banks")

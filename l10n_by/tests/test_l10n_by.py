@@ -25,7 +25,7 @@ class TestL10nBy(TransactionCase):
 
         # Apply the Belarus chart template to the company
         chart_template = cls.env["account.chart.template"]
-        chart_template._load("by", cls.company)
+        chart_template._load("by", cls.company, install_demo=False)
 
     def test_accounts_loaded(self):
         """Test that accounts were loaded from template."""

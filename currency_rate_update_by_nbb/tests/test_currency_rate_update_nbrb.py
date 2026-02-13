@@ -22,28 +22,35 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         cls.company = cls.Company.create({"name": "Test Company"})
         cls.env.user.company_id = cls.company
 
-        # Create currencies
-        cls.currency_byn = cls.env["res.currency"].create(
-            {
-                "name": "BYN",
-                "symbol": "Br",
-                "active": True,
-            }
-        )
-        cls.currency_usd = cls.env["res.currency"].create(
-            {
-                "name": "USD",
-                "symbol": "$",
-                "active": True,
-            }
-        )
-        cls.currency_eur = cls.env["res.currency"].create(
-            {
-                "name": "EUR",
-                "symbol": "€",
-                "active": True,
-            }
-        )
+        # Get or create currencies
+        Currency = cls.env["res.currency"]
+        cls.currency_byn = Currency.search([("name", "=", "BYN")], limit=1)
+        if not cls.currency_byn:
+            cls.currency_byn = Currency.create(
+                {
+                    "name": "BYN",
+                    "symbol": "Br",
+                    "active": True,
+                }
+            )
+        cls.currency_usd = Currency.search([("name", "=", "USD")], limit=1)
+        if not cls.currency_usd:
+            cls.currency_usd = Currency.create(
+                {
+                    "name": "USD",
+                    "symbol": "$",
+                    "active": True,
+                }
+            )
+        cls.currency_eur = Currency.search([("name", "=", "EUR")], limit=1)
+        if not cls.currency_eur:
+            cls.currency_eur = Currency.create(
+                {
+                    "name": "EUR",
+                    "symbol": "€",
+                    "active": True,
+                }
+            )
 
         # Create NBRB provider
         cls.provider = cls.CurrencyRateProvider.create(

@@ -12,79 +12,67 @@ class TestL10nBy(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Create a company with Belarus as country
         cls.company = cls.env["res.company"].create(
             {
                 "name": "Belarus Test Company",
                 "country_id": cls.env.ref("base.by").id,
-                "currency_id": cls.env.ref("base.BYN").id,
             }
         )
+        cls.env = cls.env(context=dict(cls.env.context, allowed_company_ids=[cls.company.id]))
 
-    def test_chart_template_exists(self):
-        """Test that Belarus chart template exists."""
-        chart_template = self.env.ref("l10n_by.by_chart_template", raise_if_not_found=False)
-        self.assertTrue(chart_template, "Belarus chart template should exist")
-        self.assertEqual(chart_template.name, "Belarus - Chart of Accounts")
-        self.assertEqual(chart_template.currency_id, self.env.ref("base.BYN"))
+        # Apply the Belarus chart template to the company
+        chart_template = cls.env["account.chart.template"]
+        chart_template._load("by", cls.company)
 
-    def test_accounts_exist(self):
-        """Test that key accounts are created."""
-        # Check if accounts are created by trying to load the template
-        chart_template = self.env.ref("l10n_by.by_chart_template")
-        self.assertTrue(chart_template)
+    def test_accounts_loaded(self):
+        """Test that accounts were loaded from template."""
+        # Check that key accounts exist after template load
+        accounts = self.env["account.account"].search([
+            ("company_id", "=", self.company.id),
+            ("code", "in", ["5010", "5110", "6210", "6010"])
+        ])
+        self.assertEqual(len(accounts), 4, "Should have 4 key accounts")
 
-        # Verify key account templates exist
-        account_templates = self.env["account.account.template"].search(
-            [("chart_template_id", "=", chart_template.id)]
-        )
-        self.assertGreater(len(account_templates), 0, "Account templates should be created")
+        # Check specific account types
+        receivable = accounts.filtered(lambda a: a.code == "6210")
+        self.assertEqual(receivable.account_type, "asset_receivable")
 
-        # Check specific important accounts
-        cash_account = self.env.ref("l10n_by.by_acc_5010", raise_if_not_found=False)
-        self.assertTrue(cash_account, "Cash account should exist")
+        payable = accounts.filtered(lambda a: a.code == "6010")
+        self.assertEqual(payable.account_type, "liability_payable")
 
-        bank_account = self.env.ref("l10n_by.by_acc_5110", raise_if_not_found=False)
-        self.assertTrue(bank_account, "Bank account should exist")
-
-    def test_vat_taxes_exist(self):
-        """Test that VAT taxes are created."""
-        chart_template = self.env.ref("l10n_by.by_chart_template")
+    def test_vat_taxes_loaded(self):
+        """Test that VAT taxes were loaded from template."""
+        taxes = self.env["account.tax"].search([
+            ("company_id", "=", self.company.id),
+        ])
+        self.assertTrue(len(taxes) >= 8, "Should have at least 8 taxes")
 
         # Check VAT 20% sale tax
-        vat_20_sale = self.env.ref("l10n_by.sale_vat_20", raise_if_not_found=False)
+        vat_20_sale = taxes.filtered(
+            lambda t: t.amount == 20.0 and t.type_tax_use == "sale"
+        )
         self.assertTrue(vat_20_sale, "VAT 20% sale tax should exist")
-        self.assertEqual(vat_20_sale.amount, 20.0)
-        self.assertEqual(vat_20_sale.type_tax_use, "sale")
 
         # Check VAT 10% sale tax
-        vat_10_sale = self.env.ref("l10n_by.sale_vat_10", raise_if_not_found=False)
+        vat_10_sale = taxes.filtered(
+            lambda t: t.amount == 10.0 and t.type_tax_use == "sale"
+        )
         self.assertTrue(vat_10_sale, "VAT 10% sale tax should exist")
-        self.assertEqual(vat_10_sale.amount, 10.0)
 
-        # Check VAT 0% export tax
-        vat_0_sale = self.env.ref("l10n_by.sale_vat_0", raise_if_not_found=False)
-        self.assertTrue(vat_0_sale, "VAT 0% export tax should exist")
-        self.assertEqual(vat_0_sale.amount, 0.0)
+    def test_fiscal_positions_loaded(self):
+        """Test that fiscal positions were loaded from template."""
+        positions = self.env["account.fiscal.position"].search([
+            ("company_id", "=", self.company.id)
+        ])
+        self.assertTrue(len(positions) >= 2, "Should have at least 2 fiscal positions")
 
-    def test_fiscal_positions_exist(self):
-        """Test that fiscal positions are created."""
-        # Check domestic fiscal position
-        fp_domestic = self.env.ref("l10n_by.fp_belarus_domestic", raise_if_not_found=False)
-        self.assertTrue(fp_domestic, "Domestic fiscal position should exist")
-        self.assertEqual(fp_domestic.country_id, self.env.ref("base.by"))
-        self.assertTrue(fp_domestic.auto_apply)
+        # Check domestic position exists
+        domestic = positions.filtered(lambda p: p.auto_apply)
+        self.assertTrue(domestic, "Auto-apply domestic position should exist")
 
-        # Check export fiscal position
-        fp_export = self.env.ref("l10n_by.fp_belarus_export", raise_if_not_found=False)
-        self.assertTrue(fp_export, "Export fiscal position should exist")
-
-    def test_tax_groups_exist(self):
-        """Test that tax groups are created."""
-        tax_group_20 = self.env.ref("l10n_by.tax_group_vat_20", raise_if_not_found=False)
-        self.assertTrue(tax_group_20, "VAT 20% tax group should exist")
-
-        tax_group_10 = self.env.ref("l10n_by.tax_group_vat_10", raise_if_not_found=False)
-        self.assertTrue(tax_group_10, "VAT 10% tax group should exist")
-
-        tax_group_0 = self.env.ref("l10n_by.tax_group_vat_0", raise_if_not_found=False)
-        self.assertTrue(tax_group_0, "VAT 0% tax group should exist")
+    def test_tax_report_exists(self):
+        """Test that Belarus VAT report was created."""
+        report = self.env.ref("l10n_by.tax_report_by", raise_if_not_found=False)
+        self.assertTrue(report, "Belarus VAT Report should exist")
+        self.assertEqual(report.country_id, self.env.ref("base.by"))

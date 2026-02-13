@@ -1,51 +1,51 @@
-id,code,name,account_type,reconcile,chart_template_id:id
-by_acc_01,01,Основные средства,asset_fixed,False,by_chart_template
-by_acc_02,02,Амортизация основных средств,asset_fixed,False,by_chart_template
-by_acc_04,04,Нематериальные активы,asset_non_current,False,by_chart_template
-by_acc_05,05,Амортизация нематериальных активов,asset_non_current,False,by_chart_template
-by_acc_08,08,Вложения во внеоборотные активы,asset_non_current,False,by_chart_template
-by_acc_10,10,Материалы,asset_current,False,by_chart_template
-by_acc_1010,1010,Сырье и материалы,asset_current,False,by_chart_template
-by_acc_20,20,Основное производство,asset_current,False,by_chart_template
-by_acc_41,41,Товары,asset_current,False,by_chart_template
-by_acc_4110,4110,Товары на складе,asset_current,False,by_chart_template
-by_acc_43,43,Готовая продукция,asset_current,False,by_chart_template
-by_acc_50,50,Касса,asset_current,False,by_chart_template
-by_acc_5010,5010,Касса организации,asset_current,False,by_chart_template
-by_acc_51,51,Расчетные счета,asset_current,True,by_chart_template
-by_acc_5110,5110,Расчетный счет,asset_current,True,by_chart_template
-by_acc_52,52,Валютные счета,asset_current,True,by_chart_template
-by_acc_57,57,Переводы в пути,asset_current,False,by_chart_template
-by_acc_5700,5700,Переводы в пути,asset_current,False,by_chart_template
-by_acc_58,58,Финансовые вложения,asset_current,False,by_chart_template
-by_acc_60,60,Расчеты с поставщиками и подрядчиками,liability_current,True,by_chart_template
-by_acc_6010,6010,Расчеты с поставщиками,liability_current,True,by_chart_template
-by_acc_62,62,Расчеты с покупателями и заказчиками,asset_current,True,by_chart_template
-by_acc_6210,6210,Расчеты с покупателями,asset_current,True,by_chart_template
-by_acc_66,66,Расчеты по краткосрочным кредитам и займам,liability_current,True,by_chart_template
-by_acc_67,67,Расчеты по долгосрочным кредитам и займам,liability_non_current,True,by_chart_template
-by_acc_68,68,Расчеты по налогам и сборам,liability_current,True,by_chart_template
-by_acc_6810,6810,Налог на прибыль,liability_current,True,by_chart_template
-by_acc_6820,6820,НДС,liability_current,True,by_chart_template
-by_acc_6830,6830,Подоходный налог,liability_current,True,by_chart_template
-by_acc_69,69,Расчеты по социальному страхованию,liability_current,True,by_chart_template
-by_acc_70,70,Расчеты с персоналом по оплате труда,liability_current,True,by_chart_template
-by_acc_71,71,Расчеты с подотчетными лицами,asset_current,True,by_chart_template
-by_acc_76,76,Расчеты с разными дебиторами и кредиторами,asset_current,True,by_chart_template
-by_acc_80,80,Уставный капитал,equity,False,by_chart_template
-by_acc_82,82,Резервный капитал,equity,False,by_chart_template
-by_acc_83,83,Добавочный капитал,equity,False,by_chart_template
-by_acc_84,84,Нераспределенная прибыль (непокрытый убыток),equity_unaffected,False,by_chart_template
-by_acc_90,90,Продажи,income,False,by_chart_template
-by_acc_9010,9010,Выручка,income,False,by_chart_template
-by_acc_9020,9020,Себестоимость продаж,expense_direct_cost,False,by_chart_template
-by_acc_9030,9030,НДС,expense,False,by_chart_template
-by_acc_9090,9090,Прибыль/убыток от продаж,income,False,by_chart_template
-by_acc_91,91,Прочие доходы и расходы,income_other,False,by_chart_template
-by_acc_9110,9110,Прочие доходы,income_other,False,by_chart_template
-by_acc_9120,9120,Прочие расходы,expense,False,by_chart_template
-by_acc_94,94,Недостачи и потери от порчи ценностей,expense,False,by_chart_template
-by_acc_96,96,Резервы предстоящих расходов,liability_current,False,by_chart_template
-by_acc_97,97,Расходы будущих периодов,asset_current,False,by_chart_template
-by_acc_98,98,Доходы будущих периодов,liability_current,False,by_chart_template
-by_acc_99,99,Прибыли и убытки,income,False,by_chart_template
+"id","code","name","account_type","reconcile"
+"by_acc_01","01","Fixed Assets","asset_fixed","False"
+"by_acc_02","02","Accumulated Depreciation","asset_fixed","False"
+"by_acc_04","04","Intangible Assets","asset_non_current","False"
+"by_acc_05","05","Accumulated Amortization of Intangibles","asset_non_current","False"
+"by_acc_08","08","Investments in Non-Current Assets","asset_non_current","False"
+"by_acc_10","10","Materials","asset_current","False"
+"by_acc_1010","1010","Raw Materials","asset_current","False"
+"by_acc_20","20","Main Production","asset_current","False"
+"by_acc_41","41","Goods","asset_current","False"
+"by_acc_4110","4110","Goods in Warehouse","asset_current","False"
+"by_acc_43","43","Finished Goods","asset_current","False"
+"by_acc_50","50","Cash","asset_current","False"
+"by_acc_5010","5010","Cash on Hand","asset_current","False"
+"by_acc_51","51","Bank Accounts","asset_current","True"
+"by_acc_5110","5110","Current Account","asset_current","True"
+"by_acc_52","52","Foreign Currency Accounts","asset_current","True"
+"by_acc_57","57","Transfers in Transit","asset_current","False"
+"by_acc_5700","5700","Money in Transit","asset_current","False"
+"by_acc_58","58","Financial Investments","asset_current","False"
+"by_acc_60","60","Accounts Payable - Trade","liability_payable","True"
+"by_acc_6010","6010","Suppliers","liability_payable","True"
+"by_acc_62","62","Accounts Receivable - Trade","asset_receivable","True"
+"by_acc_6210","6210","Customers","asset_receivable","True"
+"by_acc_66","66","Short-Term Loans","liability_current","True"
+"by_acc_67","67","Long-Term Loans","liability_non_current","True"
+"by_acc_68","68","Tax Settlements","liability_current","True"
+"by_acc_6810","6810","Income Tax Payable","liability_current","True"
+"by_acc_6820","6820","VAT Payable","liability_current","True"
+"by_acc_6830","6830","Personal Income Tax Payable","liability_current","True"
+"by_acc_69","69","Social Security Payable","liability_current","True"
+"by_acc_70","70","Payroll Payable","liability_current","True"
+"by_acc_71","71","Advances to Employees","asset_current","True"
+"by_acc_76","76","Other Debtors and Creditors","asset_current","True"
+"by_acc_80","80","Share Capital","equity","False"
+"by_acc_82","82","Reserve Capital","equity","False"
+"by_acc_83","83","Additional Capital","equity","False"
+"by_acc_84","84","Retained Earnings","equity","False"
+"by_acc_90","90","Sales","income","False"
+"by_acc_9010","9010","Revenue","income","False"
+"by_acc_9020","9020","Cost of Sales","expense_direct_cost","False"
+"by_acc_9030","9030","VAT on Sales","expense","False"
+"by_acc_9090","9090","Profit/Loss from Sales","income","False"
+"by_acc_91","91","Other Income and Expenses","income_other","False"
+"by_acc_9110","9110","Other Income","income_other","False"
+"by_acc_9120","9120","Other Expenses","expense","False"
+"by_acc_94","94","Shortages and Losses","expense","False"
+"by_acc_96","96","Reserves for Future Expenses","liability_current","False"
+"by_acc_97","97","Deferred Expenses","asset_current","False"
+"by_acc_98","98","Deferred Income","liability_current","False"
+"by_acc_99","99","Profits and Losses","expense","False"

@@ -24,32 +24,34 @@ class ResPartnerBank(models.Model):
             return "by_bank"
         return super().retrieve_acc_type(acc_number)
 
-    @api.constrains("acc_number", "country_id")
+    @api.constrains("acc_number", "partner_id")
     def _check_by_account(self):
         """Validate Belarus bank account number."""
         for bank in self:
-            if bank.country_id.code == "BY" or (
-                bank.acc_type == "by_bank" and bank.acc_number
-            ):
+            # Check if account is Belarus-related (by country or type)
+            is_by_country = bank.partner_id and bank.partner_id.country_id.code == "BY"
+            is_by_type = bank.acc_type == "by_bank" and bank.acc_number
+
+            if is_by_country or is_by_type:
                 if not self._is_by_account(bank.acc_number):
                     raise ValidationError(
                         _(
-                            "Invalid Belarus bank account number format. "
-                            "Expected format: BY + 2 check digits + 4 bank code + "
-                            "22 account digits (total 28 characters).\n"
-                            "Example: BY00XXXX0000000000000000000000"
+                            "Invalid Belarus IBAN format. "
+                            "Expected format: BY + 2 check digits + 4 BIC chars + "
+                            "20 account digits (total 28 characters).\n"
+                            "Example: BY86AKBB30120000080000000933"
                         )
                     )
 
     @api.model
     def _is_by_account(self, acc_number):
         """
-        Check if account number matches Belarus bank account format.
+        Check if account number matches Belarus bank account format (IBAN).
 
-        Belarus bank accounts format:
+        Belarus IBAN format:
         - Total: 28 characters
-        - BY (country code) + 2 check digits + 4 bank code + 22 account digits
-        - Example: BY00XXXX0000000000000000000000
+        - BY (country code) + 2 check digits + 4 BIC chars + 20 account digits
+        - Example: BY86AKBB30120000080000000933
         """
         if not acc_number:
             return False
@@ -57,8 +59,8 @@ class ResPartnerBank(models.Model):
         # Remove spaces and convert to uppercase
         acc_clean = re.sub(r"\s", "", acc_number).upper()
 
-        # Check format: BY + 26 alphanumeric characters
-        if not re.match(r"^BY\d{26}$", acc_clean):
+        # Check IBAN format: BY + 2 digits + 4 alphanumeric (BIC) + 20 digits
+        if not re.match(r"^BY\d{2}[A-Z0-9]{4}\d{20}$", acc_clean):
             return False
 
         return True

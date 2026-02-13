@@ -16,7 +16,6 @@
 "by_acc_5110","5110","Current Account","asset_current","True"
 "by_acc_52","52","Foreign Currency Accounts","asset_current","True"
 "by_acc_57","57","Transfers in Transit","asset_current","False"
-"by_acc_5700","5700","Money in Transit","asset_current","False"
 "by_acc_58","58","Financial Investments","asset_current","False"
 "by_acc_60","60","Accounts Payable - Trade","liability_payable","True"
 "by_acc_6010","6010","Suppliers","liability_payable","True"

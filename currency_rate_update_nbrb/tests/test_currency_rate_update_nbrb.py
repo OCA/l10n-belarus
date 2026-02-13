@@ -241,7 +241,19 @@ class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
         date_to = date.today() + timedelta(days=1)
 
         # Request EUR which is not in the response
-        rates = self.provider._obtain_rates("BYN", ["USD", "EUR"], date_from, date_to)
+        # We expect a WARNING log for missing currency
+        with self.assertLogs(
+            "odoo.addons.currency_rate_update_nbrb.models.res_currency_rate_provider_nbrb",
+            level="WARNING",
+        ) as log_catcher:
+            rates = self.provider._obtain_rates(
+                "BYN", ["USD", "EUR"], date_from, date_to
+            )
+
+        # Verify the warning was logged
+        self.assertTrue(
+            any("EUR not found" in message for message in log_catcher.output)
+        )
 
         rate_date = rates[date.today().isoformat()]
         # USD should be present

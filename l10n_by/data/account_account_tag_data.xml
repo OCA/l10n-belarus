@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Account Tags for Financial Reporting -->
+
+        <!-- Assets -->
+        <record id="account_tag_non_current_assets" model="account.account.tag">
+            <field name="name">Non-current Assets</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_current_assets" model="account.account.tag">
+            <field name="name">Current Assets</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_cash" model="account.account.tag">
+            <field name="name">Cash and Cash Equivalents</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <!-- Liabilities -->
+        <record id="account_tag_equity" model="account.account.tag">
+            <field name="name">Equity</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_non_current_liabilities" model="account.account.tag">
+            <field name="name">Non-current Liabilities</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_current_liabilities" model="account.account.tag">
+            <field name="name">Current Liabilities</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <!-- Income & Expenses -->
+        <record id="account_tag_revenue" model="account.account.tag">
+            <field name="name">Revenue</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_cost_of_sales" model="account.account.tag">
+            <field name="name">Cost of Sales</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_operating_expenses" model="account.account.tag">
+            <field name="name">Operating Expenses</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_other_income" model="account.account.tag">
+            <field name="name">Other Income</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_other_expenses" model="account.account.tag">
+            <field name="name">Other Expenses</field>
+            <field name="applicability">accounts</field>
+        </record>
+    </data>
+</odoo>

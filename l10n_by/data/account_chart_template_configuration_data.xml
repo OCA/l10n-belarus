@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Automatically load chart template for Belarus companies -->
+        <function model="account.chart.template" name="try_loading">
+            <value eval="[ref('by_chart_template')]"/>
+        </function>
+    </data>
+</odoo>

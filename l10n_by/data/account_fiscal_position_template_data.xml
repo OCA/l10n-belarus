@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fiscal Positions for Belarus -->
+
+        <!-- Domestic Belarus -->
+        <record id="fp_belarus_domestic" model="account.fiscal.position.template">
+            <field name="name">Belarus - Domestic</field>
+            <field name="chart_template_id" ref="by_chart_template"/>
+            <field name="country_id" ref="base.by"/>
+            <field name="auto_apply" eval="True"/>
+            <field name="vat_required" eval="True"/>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Export (VAT 0%) -->
+        <record id="fp_belarus_export" model="account.fiscal.position.template">
+            <field name="name">Belarus - Export</field>
+            <field name="chart_template_id" ref="by_chart_template"/>
+            <field name="auto_apply" eval="False"/>
+            <field name="vat_required" eval="False"/>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Tax mapping for export: 20% -> 0% -->
+        <record id="fp_belarus_export_tax_20_to_0" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fp_belarus_export"/>
+            <field name="tax_src_id" ref="sale_vat_20"/>
+            <field name="tax_dest_id" ref="sale_vat_0"/>
+        </record>
+
+        <record id="fp_belarus_export_tax_10_to_0" model="account.fiscal.position.tax.template">
+            <field name="position_id" ref="fp_belarus_export"/>
+            <field name="tax_src_id" ref="sale_vat_10"/>
+            <field name="tax_dest_id" ref="sale_vat_0"/>
+        </record>
+    </data>
+</odoo>

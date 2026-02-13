@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Default Accounts Configuration -->
+        <record id="by_chart_template" model="account.chart.template">
+            <field name="property_account_receivable_id" ref="by_acc_6210"/>
+            <field name="property_account_payable_id" ref="by_acc_6010"/>
+            <field name="property_account_expense_categ_id" ref="by_acc_4110"/>
+            <field name="property_account_income_categ_id" ref="by_acc_9010"/>
+        </record>
+    </data>
+</odoo>

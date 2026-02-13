@@ -30,11 +30,9 @@ class TestL10nBy(TransactionCase):
     def test_accounts_loaded(self):
         """Test that accounts were loaded from template."""
         # Check that key accounts exist after template load
-        accounts = self.env["account.account"].search(
-            [
-                ("company_id", "=", self.company.id),
-                ("code", "in", ["5010", "5110", "6210", "6010"]),
-            ]
+        AccountAccount = self.env["account.account"].with_company(self.company)
+        accounts = AccountAccount.search(
+            [("code", "in", ["5010", "5110", "6210", "6010"])]
         )
         self.assertEqual(len(accounts), 4, "Should have 4 key accounts")
 
@@ -47,11 +45,7 @@ class TestL10nBy(TransactionCase):
 
     def test_vat_taxes_loaded(self):
         """Test that VAT taxes were loaded from template."""
-        taxes = self.env["account.tax"].search(
-            [
-                ("company_id", "=", self.company.id),
-            ]
-        )
+        taxes = self.env["account.tax"].with_company(self.company).search([])
         self.assertTrue(len(taxes) >= 8, "Should have at least 8 taxes")
 
         # Check VAT 20% sale tax
@@ -68,8 +62,8 @@ class TestL10nBy(TransactionCase):
 
     def test_fiscal_positions_loaded(self):
         """Test that fiscal positions were loaded from template."""
-        positions = self.env["account.fiscal.position"].search(
-            [("company_id", "=", self.company.id)]
+        positions = (
+            self.env["account.fiscal.position"].with_company(self.company).search([])
         )
         self.assertTrue(len(positions) >= 2, "Should have at least 2 fiscal positions")
 

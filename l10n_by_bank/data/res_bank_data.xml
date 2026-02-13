@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Belarus Banks Registry -->
+        <record id="bank_nbrb" model="res.bank">
+            <field name="name">National Bank of the Republic of Belarus</field>
+            <field name="bic">NBRBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_belarusbank" model="res.bank">
+            <field name="name">Belarusbank</field>
+            <field name="bic">UNBSBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_belinvestbank" model="res.bank">
+            <field name="name">Belinvestbank</field>
+            <field name="bic">BLBBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_bps_sberbank" model="res.bank">
+            <field name="name">BPS-Sberbank</field>
+            <field name="bic">BPSBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_belgazprombank" model="res.bank">
+            <field name="name">Belgazprombank</field>
+            <field name="bic">OLMPBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_priorbank" model="res.bank">
+            <field name="name">Priorbank</field>
+            <field name="bic">PJCBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_alfabank" model="res.bank">
+            <field name="name">Alfa-Bank Belarus</field>
+            <field name="bic">ALFABY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_mtb" model="res.bank">
+            <field name="name">MTB (Moscow-Minsk Bank)</field>
+            <field name="bic">MMBNBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_vtb" model="res.bank">
+            <field name="name">VTB Bank Belarus</field>
+            <field name="bic">VTBBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_belveb" model="res.bank">
+            <field name="name">Belveb Bank</field>
+            <field name="bic">BEVBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_idea_bank" model="res.bank">
+            <field name="name">Idea Bank Belarus</field>
+            <field name="bic">IDEABY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_bnb" model="res.bank">
+            <field name="name">BNB-Bank</field>
+            <field name="bic">BNBLBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_technbank" model="res.bank">
+            <field name="name">Technbank</field>
+            <field name="bic">TECHBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_dabrabyt" model="res.bank">
+            <field name="name">Dabrabyt Bank</field>
+            <field name="bic">DABRBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_solution" model="res.bank">
+            <field name="name">Solution Bank</field>
+            <field name="bic">SOLUBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_paritetbank" model="res.bank">
+            <field name="name">Paritetbank</field>
+            <field name="bic">PARSBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_fsb" model="res.bank">
+            <field name="name">FS Bank</field>
+            <field name="bic">FSFBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_rn_bank" model="res.bank">
+            <field name="name">RN Bank</field>
+            <field name="bic">RNBKBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_zepter" model="res.bank">
+            <field name="name">Zepter Bank</field>
+            <field name="bic">ZEPTBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_belswissbank" model="res.bank">
+            <field name="name">Belswissbank</field>
+            <field name="bic">BELBBY2X</field>
+            <field name="country" ref="base.by" />
+        </record>
+
+        <record id="bank_status" model="res.bank">
+            <field name="name">Status Bank</field>
+            <field name="bic">STDTBY22</field>
+            <field name="country" ref="base.by" />
+        </record>
+    </data>
+</odoo>

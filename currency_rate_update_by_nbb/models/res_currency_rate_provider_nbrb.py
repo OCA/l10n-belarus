@@ -5,7 +5,6 @@
 import json
 import logging
 from collections import defaultdict
-from datetime import date
 from urllib.request import urlopen
 
 from odoo import fields, models
@@ -93,9 +92,7 @@ class ResCurrencyRateProviderNBRB(models.Model):
             with urlopen(url, timeout=10) as response:
                 content = response.read().decode("utf-8")
         except Exception as e:
-            raise UserError(
-                _("Error connecting to NBRB API: %s") % str(e)
-            ) from e
+            raise UserError(_("Error connecting to NBRB API: %s") % str(e)) from e
 
         try:
             json_data = json.loads(content)
@@ -146,17 +143,13 @@ class ResCurrencyRateProviderNBRB(models.Model):
 
         for currency in currencies:
             if currency not in currency_map:
-                _logger.warning(
-                    "NBRB: Currency %s not found in NBRB data", currency
-                )
+                _logger.warning("NBRB: Currency %s not found in NBRB data", currency)
                 continue
 
             if invert_calculation:
                 # Calculate rate relative to base currency (not BYN)
                 if base_currency not in currency_map:
-                    _logger.error(
-                        "NBRB: Base currency %s not found", base_currency
-                    )
+                    _logger.error("NBRB: Base currency %s not found", base_currency)
                     continue
 
                 base_rate = (
@@ -164,8 +157,7 @@ class ResCurrencyRateProviderNBRB(models.Model):
                     / currency_map[base_currency]["scale"]
                 )
                 curr_rate = (
-                    currency_map[currency]["rate"]
-                    / currency_map[currency]["scale"]
+                    currency_map[currency]["rate"] / currency_map[currency]["scale"]
                 )
 
                 if currency == "BYN":
@@ -181,13 +173,10 @@ class ResCurrencyRateProviderNBRB(models.Model):
                     rate = 1.0
                 else:
                     rate = 1.0 / (
-                        currency_map[currency]["rate"]
-                        / currency_map[currency]["scale"]
+                        currency_map[currency]["rate"] / currency_map[currency]["scale"]
                     )
 
             content[rate_date_iso][currency] = str(rate)
-            _logger.debug(
-                "NBRB: 1 %s = %s %s", base_currency, rate, currency
-            )
+            _logger.debug("NBRB: 1 %s = %s %s", base_currency, rate, currency)
 
         return content

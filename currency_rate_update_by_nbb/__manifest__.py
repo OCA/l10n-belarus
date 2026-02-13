@@ -8,7 +8,7 @@
     "version": "18.0.1.0.0",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/l10n-belarus",
-    "author": "Ventor, Xpansa Group, Aliaksandr Zubik, Odoo Community Association (OCA)",
+    "author": "Ventor, Aliaksandr Zubik, Odoo Community Association (OCA)",
     "maintainers": ["ZubikIT"],
     "license": "AGPL-3",
     "application": False,

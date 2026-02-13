@@ -6,10 +6,13 @@ from datetime import date, timedelta
 from unittest.mock import patch
 
 from odoo.exceptions import UserError
-from odoo.tests.common import TransactionCase
+from odoo.tests import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestCurrencyRateUpdateNBRB(TransactionCase):
+@tagged("post_install", "-at_install")
+class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
     """Tests for NBRB currency rate provider."""
 
     @classmethod
@@ -19,26 +22,21 @@ class TestCurrencyRateUpdateNBRB(TransactionCase):
         cls.CurrencyRate = cls.env["res.currency.rate"]
         cls.CurrencyRateProvider = cls.env["res.currency.rate.provider"]
 
-        cls.company = cls.Company.create({"name": "Test Company"})
-        cls.env.user.company_id = cls.company
-
-        # Get currencies (they should exist in base Odoo)
-        # Use search with sudo() to bypass access rights
-        Currency = cls.env["res.currency"].sudo()
-
-        # Try to get existing currencies, or create them if they don't exist
-        # This handles both cases: fresh DB and DB with currencies loaded
-        cls.currency_usd = Currency.search([("name", "=", "USD")], limit=1)
-        if not cls.currency_usd:
-            cls.currency_usd = Currency.create({"name": "USD", "symbol": "$"})
-
-        cls.currency_eur = Currency.search([("name", "=", "EUR")], limit=1)
-        if not cls.currency_eur:
-            cls.currency_eur = Currency.create({"name": "EUR", "symbol": "€"})
-
-        cls.currency_byn = Currency.search([("name", "=", "BYN")], limit=1)
+        # Get currencies using XML IDs
+        cls.currency_usd = cls.env.ref("base.USD")
+        cls.currency_eur = cls.env.ref("base.EUR")
+        # BYN might not exist, create only if needed
+        cls.currency_byn = cls.env["res.currency"].search([("name", "=", "BYN")])
         if not cls.currency_byn:
-            cls.currency_byn = Currency.create({"name": "BYN", "symbol": "Br"})
+            cls.currency_byn = cls.env["res.currency"].create(
+                {"name": "BYN", "symbol": "Br"}
+            )
+
+        cls.company = cls.Company.create(
+            {"name": "Test Company", "currency_id": cls.currency_byn.id}
+        )
+        cls.env.user.company_ids += cls.company
+        cls.env.user.company_id = cls.company
 
         # Create NBRB provider
         cls.provider = cls.CurrencyRateProvider.create(

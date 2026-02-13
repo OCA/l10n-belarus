@@ -1,164 +1,162 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
-    <data noupdate="1">
-        <!-- Belarus Banks Registry (Official data from NBRB) -->
+<odoo noupdate="1">
+    <!-- Belarus Banks Registry (Official data from NBRB) -->
 
-        <!-- National Bank -->
-        <record id="bank_nbrb" model="res.bank">
-            <field name="name">Национальный банк Республики Беларусь</field>
-            <field name="bic">NBRBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <!-- National Bank -->
+    <record id="bank_nbrb" model="res.bank">
+        <field name="name">Национальный банк Республики Беларусь</field>
+        <field name="bic">NBRBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <!-- Commercial Banks -->
-        <record id="bank_vtb" model="res.bank">
-            <field name="name">ЗАО Банк ВТБ (Беларусь)</field>
-            <field name="bic">SLANBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <!-- Commercial Banks -->
+    <record id="bank_vtb" model="res.bank">
+        <field name="name">ЗАО Банк ВТБ (Беларусь)</field>
+        <field name="bic">SLANBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_rrb" model="res.bank">
-            <field name="name">ЗАО 'Банк РРБ'</field>
-            <field name="bic">REDJBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_rrb" model="res.bank">
+        <field name="name">ЗАО 'Банк РРБ'</field>
+        <field name="bic">REDJBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_iib" model="res.bank">
-            <field name="name">Межгосударственный банк</field>
-            <field name="bic">INEARUMM</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_iib" model="res.bank">
+        <field name="name">Межгосударственный банк</field>
+        <field name="bic">INEARUMM</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_edb" model="res.bank">
-            <field name="name">Евразийский банк развития</field>
-            <field name="bic">EABRKZKA</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_edb" model="res.bank">
+        <field name="name">Евразийский банк развития</field>
+        <field name="bic">EABRKZKA</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_mtb" model="res.bank">
-            <field name="name">ЗАО 'МТБанк'</field>
-            <field name="bic">MTBKBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_mtb" model="res.bank">
+        <field name="name">ЗАО 'МТБанк'</field>
+        <field name="bic">MTBKBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_bsb" model="res.bank">
-            <field name="name">ЗАО 'БСБ Банк'</field>
-            <field name="bic">UNBSBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_bsb" model="res.bank">
+        <field name="name">ЗАО 'БСБ Банк'</field>
+        <field name="bic">UNBSBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_technobank" model="res.bank">
-            <field name="name">ОАО 'Технобанк'</field>
-            <field name="bic">TECNBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_technobank" model="res.bank">
+        <field name="name">ОАО 'Технобанк'</field>
+        <field name="bic">TECNBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_bcse" model="res.bank">
-            <field name="name">ОАО 'Белорусская валютно-фондовая биржа'</field>
-            <field name="bic">BCSXBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_bcse" model="res.bank">
+        <field name="name">ОАО 'Белорусская валютно-фондовая биржа'</field>
+        <field name="bic">BCSXBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_brrb" model="res.bank">
-            <field name="name">ОАО 'Банк развития Республики Беларусь'</field>
-            <field name="bic">BRRBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_brrb" model="res.bank">
+        <field name="name">ОАО 'Банк развития Республики Беларусь'</field>
+        <field name="bic">BRRBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_belveb" model="res.bank">
-            <field name="name">ОАО 'Банк БелВЭБ'</field>
-            <field name="bic">BELBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_belveb" model="res.bank">
+        <field name="name">ОАО 'Банк БелВЭБ'</field>
+        <field name="bic">BELBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_alfabank" model="res.bank">
-            <field name="name">ЗАО 'Альфа-Банк'</field>
-            <field name="bic">ALFABY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_alfabank" model="res.bank">
+        <field name="name">ЗАО 'Альфа-Банк'</field>
+        <field name="bic">ALFABY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_dabrabyt" model="res.bank">
-            <field name="name">ОАО 'Банк Дабрабыт'</field>
-            <field name="bic">MMBNBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_dabrabyt" model="res.bank">
+        <field name="name">ОАО 'Банк Дабрабыт'</field>
+        <field name="bic">MMBNBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_reshenie" model="res.bank">
-            <field name="name">ЗАО 'Банк 'Решение'</field>
-            <field name="bic">RSHNBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_reshenie" model="res.bank">
+        <field name="name">ЗАО 'Банк 'Решение'</field>
+        <field name="bic">RSHNBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_tk" model="res.bank">
-            <field name="name">ЗАО 'ТК Банк'</field>
-            <field name="bic">BBTKBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_tk" model="res.bank">
+        <field name="name">ЗАО 'ТК Банк'</field>
+        <field name="bic">BBTKBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_sber" model="res.bank">
-            <field name="name">ОАО 'Сбер Банк'</field>
-            <field name="bic">BPSBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_sber" model="res.bank">
+        <field name="name">ОАО 'Сбер Банк'</field>
+        <field name="bic">BPSBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_neo" model="res.bank">
-            <field name="name">ЗАО 'Нео Банк Азия'</field>
-            <field name="bic">AEBKBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_neo" model="res.bank">
+        <field name="name">ЗАО 'Нео Банк Азия'</field>
+        <field name="bic">AEBKBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_status" model="res.bank">
-            <field name="name">ОАО 'СтатусБанк'</field>
-            <field name="bic">IRJSBY22</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_status" model="res.bank">
+        <field name="name">ОАО 'СтатусБанк'</field>
+        <field name="bic">IRJSBY22</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_belinvestbank" model="res.bank">
-            <field name="name">ОАО 'Белинвестбанк'</field>
-            <field name="bic">BLBBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_belinvestbank" model="res.bank">
+        <field name="name">ОАО 'Белинвестбанк'</field>
+        <field name="bic">BLBBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_belgazprombank" model="res.bank">
-            <field name="name">ОАО 'Белгазпромбанк'</field>
-            <field name="bic">OLMPBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_belgazprombank" model="res.bank">
+        <field name="name">ОАО 'Белгазпромбанк'</field>
+        <field name="bic">OLMPBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_priorbank" model="res.bank">
-            <field name="name">Приорбанк' ОАО</field>
-            <field name="bic">PJCBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_priorbank" model="res.bank">
+        <field name="name">Приорбанк' ОАО</field>
+        <field name="bic">PJCBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_bnb" model="res.bank">
-            <field name="name">ОАО 'БНБ-Банк'</field>
-            <field name="bic">BLNBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_bnb" model="res.bank">
+        <field name="name">ОАО 'БНБ-Банк'</field>
+        <field name="bic">BLNBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_paritetbank" model="res.bank">
-            <field name="name">ОАО 'Паритетбанк'</field>
-            <field name="bic">POISBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_paritetbank" model="res.bank">
+        <field name="name">ОАО 'Паритетбанк'</field>
+        <field name="bic">POISBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_belarusbank" model="res.bank">
-            <field name="name">ОАО 'АСБ Беларусбанк'</field>
-            <field name="bic">AKBBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_belarusbank" model="res.bank">
+        <field name="name">ОАО 'АСБ Беларусбанк'</field>
+        <field name="bic">AKBBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_zepter" model="res.bank">
-            <field name="name">ЗАО 'Цептер Банк'</field>
-            <field name="bic">ZEPTBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
+    <record id="bank_zepter" model="res.bank">
+        <field name="name">ЗАО 'Цептер Банк'</field>
+        <field name="bic">ZEPTBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 
-        <record id="bank_belagroprombank" model="res.bank">
-            <field name="name">ОАО 'Белагропромбанк'</field>
-            <field name="bic">BAPBBY2X</field>
-            <field name="country" ref="base.by" />
-        </record>
-    </data>
+    <record id="bank_belagroprombank" model="res.bank">
+        <field name="name">ОАО 'Белагропромбанк'</field>
+        <field name="bic">BAPBBY2X</field>
+        <field name="country" ref="base.by" />
+    </record>
 </odoo>

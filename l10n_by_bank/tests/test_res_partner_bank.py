@@ -99,5 +99,7 @@ class TestResPartnerBank(TransactionCase):
         self.assertEqual(belarusbank.country, self.env.ref("base.by"))
 
         # Check that multiple banks are loaded
-        by_banks = self.env["res.bank"].search([("country", "=", self.env.ref("base.by").id)])
+        by_banks = self.env["res.bank"].search(
+            [("country", "=", self.env.ref("base.by").id)]
+        )
         self.assertGreater(len(by_banks), 20, "Should have loaded 26 Belarus banks")

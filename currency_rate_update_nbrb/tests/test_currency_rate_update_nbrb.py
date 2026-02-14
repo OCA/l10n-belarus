@@ -127,9 +127,11 @@ class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
 
         # Check that rates were returned
         self.assertIsInstance(rates, dict)
-        self.assertIn(date.today().isoformat(), rates)
+        # Mock returns date 2026-02-13
+        expected_date = "2026-02-13"
+        self.assertIn(expected_date, rates)
 
-        rate_date = rates[date.today().isoformat()]
+        rate_date = rates[expected_date]
         self.assertIn("USD", rate_date)
         self.assertIn("EUR", rate_date)
 
@@ -158,9 +160,11 @@ class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
 
         # Check that rates were returned
         self.assertIsInstance(rates, dict)
-        self.assertIn(date.today().isoformat(), rates)
+        # Mock returns date 2026-02-13
+        expected_date = "2026-02-13"
+        self.assertIn(expected_date, rates)
 
-        rate_date = rates[date.today().isoformat()]
+        rate_date = rates[expected_date]
         self.assertIn("EUR", rate_date)
         self.assertIn("BYN", rate_date)
 
@@ -257,7 +261,9 @@ class TestCurrencyRateUpdateNBRB(AccountTestInvoicingCommon):
             any("EUR not found" in message for message in log_catcher.output)
         )
 
-        rate_date = rates[date.today().isoformat()]
+        # Mock returns date 2026-02-13
+        expected_date = "2026-02-13"
+        rate_date = rates[expected_date]
         # USD should be present
         self.assertIn("USD", rate_date)
         # EUR should be missing (logged as warning but not in result)

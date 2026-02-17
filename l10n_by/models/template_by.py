@@ -1,5 +1,5 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo import _, models
+from odoo import models
 
 from odoo.addons.account.models.chart_template import template
 
@@ -10,7 +10,7 @@ class AccountChartTemplate(models.AbstractModel):
     @template("by")
     def _get_by_template_data(self):
         return {
-            "name": _("Belarus - Accounting"),
+            "name": self.env._("Belarus - Accounting"),
             "visible": True,
             "code_digits": "4",
             "property_account_receivable_id": "by_acc_6210",

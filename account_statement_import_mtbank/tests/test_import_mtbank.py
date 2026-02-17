@@ -15,7 +15,22 @@ class TestMTBankImport(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.currency_byn = cls.env.ref("base.BYN")
+        # Get or create BYN currency
+        cls.currency_byn = cls.env["res.currency"].with_context(active_test=False).search(
+            [("name", "=", "BYN")], limit=1
+        )
+        if not cls.currency_byn:
+            cls.currency_byn = cls.env["res.currency"].create(
+                {
+                    "name": "BYN",
+                    "symbol": "Br",
+                    "rounding": 0.01,
+                    "position": "after",
+                    "active": True,
+                }
+            )
+        elif not cls.currency_byn.active:
+            cls.currency_byn.active = True
         cls.bank_journal = cls.env["account.journal"].create(
             {
                 "name": "MTBank Test",

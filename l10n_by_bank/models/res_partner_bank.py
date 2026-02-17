@@ -3,7 +3,7 @@
 
 import re
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.exceptions import ValidationError
 
 
@@ -14,7 +14,7 @@ class ResPartnerBank(models.Model):
     def _get_supported_account_types(self):
         """Add BY bank account type."""
         rslt = super()._get_supported_account_types()
-        rslt.append(("by_bank", _("Belarus Bank Account")))
+        rslt.append(("by_bank", self.env._("Belarus Bank Account")))
         return rslt
 
     @api.model
@@ -35,7 +35,7 @@ class ResPartnerBank(models.Model):
             if is_by_country or is_by_type:
                 if not self._is_by_account(bank.acc_number):
                     raise ValidationError(
-                        _(
+                        self.env._(
                             "Invalid Belarus IBAN format. "
                             "Expected format: BY + 2 check digits + 4 BIC chars + "
                             "20 account digits (total 28 characters).\n"

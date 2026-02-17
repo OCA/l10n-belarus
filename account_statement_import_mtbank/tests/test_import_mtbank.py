@@ -16,8 +16,10 @@ class TestMTBankImport(AccountTestInvoicingCommon):
     def setUpClass(cls):
         super().setUpClass()
         # Get or create BYN currency
-        cls.currency_byn = cls.env["res.currency"].with_context(active_test=False).search(
-            [("name", "=", "BYN")], limit=1
+        cls.currency_byn = (
+            cls.env["res.currency"]
+            .with_context(active_test=False)
+            .search([("name", "=", "BYN")], limit=1)
         )
         if not cls.currency_byn:
             cls.currency_byn = cls.env["res.currency"].create(

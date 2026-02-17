@@ -5,7 +5,7 @@ import logging
 from datetime import datetime
 from xml.etree import ElementTree as ET
 
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -21,8 +21,8 @@ class AccountStatementImport(models.TransientModel):
             # Check if this is MTBank format
             if root.tag == "Export" and root.find(".//StatementByDay") is not None:
                 return self._parse_mtbank_xml(root)
-        except ET.ParseError:
-            pass
+        except ET.ParseError as error:
+            _logger.debug("Not a valid XML file: %s", error)
         return super()._parse_file(data_file)
 
     def _parse_mtbank_xml(self, root):
@@ -42,11 +42,13 @@ class AccountStatementImport(models.TransientModel):
         """
         statement_by_day = root.find(".//StatementByDay")
         if statement_by_day is None:
-            raise UserError(_("Invalid MTBank XML file: StatementByDay not found"))
+            raise UserError(
+                self.env._("Invalid MTBank XML file: StatementByDay not found")
+            )
 
         rows = statement_by_day.findall("StatementByDayRow")
         if not rows:
-            raise UserError(_("No statement data found in MTBank XML file"))
+            raise UserError(self.env._("No statement data found in MTBank XML file"))
 
         # Group rows by account
         accounts_data = {}
@@ -58,7 +60,7 @@ class AccountStatementImport(models.TransientModel):
             if account not in accounts_data:
                 accounts_data[account] = {
                     "currency": self._get_xml_text(row, "CurrIso"),
-                    "rows": []
+                    "rows": [],
                 }
             accounts_data[account]["rows"].append(row)
 
@@ -75,9 +77,11 @@ class AccountStatementImport(models.TransientModel):
         rows = data["rows"]
 
         # Sort rows by date
-        rows.sort(key=lambda r: self._parse_mtbank_date(
-            self._get_xml_text(r, "ClosingBalanceDate")
-        ))
+        rows.sort(
+            key=lambda r: self._parse_mtbank_date(
+                self._get_xml_text(r, "ClosingBalanceDate")
+            )
+        )
 
         transactions = []
         balance_start = None
@@ -103,29 +107,49 @@ class AccountStatementImport(models.TransientModel):
 
             # Create transactions for debit and credit if there are movements
             if debit_count > 0 and debit_turnover != 0:
-                transactions.append({
-                    "date": closing_date,
-                    "payment_ref": _("Debit transactions (%s)") % debit_count,
-                    "amount": -abs(debit_turnover),  # Debit is negative
-                    "unique_import_id": f"{account_number}-{closing_date.strftime('%Y%m%d')}-DEBIT",
-                })
+                transactions.append(
+                    {
+                        "date": closing_date,
+                        "payment_ref": self.env._(
+                            "Debit transactions (%(count)s)", count=debit_count
+                        ),
+                        "amount": -abs(debit_turnover),  # Debit is negative
+                        "unique_import_id": (
+                            f"{account_number}-{closing_date.strftime('%Y%m%d')}-DEBIT"
+                        ),
+                    }
+                )
 
             if credit_count > 0 and credit_turnover != 0:
-                transactions.append({
-                    "date": closing_date,
-                    "payment_ref": _("Credit transactions (%s)") % credit_count,
-                    "amount": abs(credit_turnover),  # Credit is positive
-                    "unique_import_id": f"{account_number}-{closing_date.strftime('%Y%m%d')}-CREDIT",
-                })
+                transactions.append(
+                    {
+                        "date": closing_date,
+                        "payment_ref": self.env._(
+                            "Credit transactions (%(count)s)", count=credit_count
+                        ),
+                        "amount": abs(credit_turnover),  # Credit is positive
+                        "unique_import_id": (
+                            f"{account_number}-{closing_date.strftime('%Y%m%d')}-CREDIT"
+                        ),
+                    }
+                )
 
         # Create statement data
-        stmt_vals = [{
-            "name": f"{account_number}/{rows[0].find('ClosingBalanceDate').text if rows else ''}",
-            "date": rows[-1].find("ClosingBalanceDate").text if rows else datetime.now().date(),
-            "balance_start": balance_start or 0.0,
-            "balance_end_real": balance_end or 0.0,
-            "transactions": transactions,
-        }]
+        first_date_text = rows[0].find("ClosingBalanceDate").text if rows else ""
+        last_date_text = rows[-1].find("ClosingBalanceDate").text if rows else None
+        stmt_vals = [
+            {
+                "name": f"{account_number}/{first_date_text}",
+                "date": (
+                    self._parse_mtbank_date(last_date_text)
+                    if last_date_text
+                    else datetime.now().date()
+                ),
+                "balance_start": balance_start or 0.0,
+                "balance_end_real": balance_end or 0.0,
+                "transactions": transactions,
+            }
+        ]
 
         return (currency_code, account_number, stmt_vals)
 

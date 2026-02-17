@@ -16,13 +16,15 @@ class TestMTBankImport(AccountTestInvoicingCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.currency_byn = cls.env.ref("base.BYN")
-        cls.bank_journal = cls.env["account.journal"].create({
-            "name": "MTBank Test",
-            "code": "MTBK",
-            "type": "bank",
-            "currency_id": cls.currency_byn.id,
-            "bank_acc_number": "BY09MTBK30120001093300069943",
-        })
+        cls.bank_journal = cls.env["account.journal"].create(
+            {
+                "name": "MTBank Test",
+                "code": "MTBK",
+                "type": "bank",
+                "currency_id": cls.currency_byn.id,
+                "bank_acc_number": "BY09MTBK30120001093300069943",
+            }
+        )
 
     def test_mtbank_xml_import(self):
         """Test importing MTBank XML format."""
@@ -30,10 +32,12 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         with open(testfile, "rb") as datafile:
             datafile_contents = datafile.read()
 
-        wizard = self.env["account.statement.import"].create({
-            "statement_file": base64.b64encode(datafile_contents),
-            "statement_filename": "test_mtbank.xml",
-        })
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(datafile_contents),
+                "statement_filename": "test_mtbank.xml",
+            }
+        )
 
         # Import the file
         result = wizard._import_file()
@@ -44,7 +48,9 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         self.assertTrue(len(result["statement_ids"]) > 0)
 
         # Get created statement
-        statement = self.env["account.bank.statement"].browse(result["statement_ids"][0])
+        statement = self.env["account.bank.statement"].browse(
+            result["statement_ids"][0]
+        )
 
         # Verify statement data
         self.assertEqual(statement.journal_id, self.bank_journal)
@@ -55,13 +61,13 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         self.assertTrue(len(statement.line_ids) > 0)
 
         # Check debit transaction
-        debit_line = statement.line_ids.filtered(lambda l: l.amount < 0)
+        debit_line = statement.line_ids.filtered(lambda line: line.amount < 0)
         self.assertEqual(len(debit_line), 1)
         self.assertEqual(debit_line.amount, -712.35)
         self.assertEqual(debit_line.date, date(2025, 6, 12))
 
         # Check credit transaction
-        credit_line = statement.line_ids.filtered(lambda l: l.amount > 0)
+        credit_line = statement.line_ids.filtered(lambda line: line.amount > 0)
         self.assertEqual(len(credit_line), 1)
         self.assertEqual(credit_line.amount, 1000.00)
         self.assertEqual(credit_line.date, date(2025, 6, 15))
@@ -72,10 +78,12 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         with open(testfile, "rb") as datafile:
             datafile_contents = datafile.read()
 
-        wizard = self.env["account.statement.import"].create({
-            "statement_file": base64.b64encode(datafile_contents),
-            "statement_filename": "test_mtbank.xml",
-        })
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(datafile_contents),
+                "statement_filename": "test_mtbank.xml",
+            }
+        )
 
         # Parse the file
         result = wizard._parse_file(datafile_contents)

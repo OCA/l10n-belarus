@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-l10n-belarus"
-version = "18.0.20261029.0"
+version = "18.0.20261029.1"
 dependencies = [
     "odoo-addon-currency_rate_update_nbrb==18.0.*",
+    "odoo-addon-l10n_by==18.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",

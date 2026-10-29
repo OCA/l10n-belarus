@@ -17,7 +17,11 @@ l10n-belarus
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[currency_rate_update_nbrb](currency_rate_update_nbrb/) | 18.0.1.0.0 | <a href='https://github.com/ZubikIT'><img src='https://github.com/ZubikIT.png' width='32' height='32' style='border-radius:50%;' alt='ZubikIT'/></a> | Download currency exchange rates from National Bank of Belarus
 
 [//]: # (end addons)
 

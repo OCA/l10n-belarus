@@ -7,6 +7,7 @@
     "category": "Accounting/Localizations/Account Charts",
     "summary": "Chart of Accounts and Taxes for Belarus",
     "author": "Aliaksandr Zubik, Odoo Community Association (OCA)",
+    "maintainers": ["ZubikIT"],
     "website": "https://github.com/OCA/l10n-belarus",
     "license": "AGPL-3",
     "countries": ["by"],

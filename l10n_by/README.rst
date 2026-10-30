@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ====================
 Belarus - Accounting
 ====================
@@ -17,7 +13,7 @@ Belarus - Accounting
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--belarus-lightgray.png?logo=github
@@ -38,22 +34,22 @@ Odoo.
 Features
 --------
 
-- Chart of Accounts for Belarus based on Ministry of Finance Decree №50
-- VAT taxes: 20% (standard), 10% (reduced), 0% (export), and exempt
-- Fiscal positions for domestic sales and export
-- Default accounts configuration
-- Support for BYN (Belarusian Ruble) as the main currency
+-  Chart of Accounts for Belarus based on Ministry of Finance Decree №50
+-  VAT taxes: 20% (standard), 10% (reduced), 0% (export), and exempt
+-  Fiscal positions for domestic sales and export
+-  Default accounts configuration
+-  Support for BYN (Belarusian Ruble) as the main currency
 
 Особенности
 -----------
 
-- План счетов для Республики Беларусь на основе Постановления Минфина
-  №50
-- Налоги НДС: 20% (стандартная), 10% (льготная), 0% (экспорт),
-  освобождение
-- Фискальные позиции для внутренних продаж и экспорта
-- Настройка счетов по умолчанию
-- Поддержка белорусского рубля (BYN) в качестве основной валюты
+-  План счетов для Республики Беларусь на основе Постановления Минфина
+   №50
+-  Налоги НДС: 20% (стандартная), 10% (льготная), 0% (экспорт),
+   освобождение
+-  Фискальные позиции для внутренних продаж и экспорта
+-  Настройка счетов по умолчанию
+-  Поддержка белорусского рубля (BYN) в качестве основной валюты
 
 **Table of contents**
 
@@ -97,19 +93,19 @@ all accounting operations.
 
 **Available VAT Taxes:**
 
-- **VAT 20%** - Standard rate for most goods and services
-- **VAT 10%** - Reduced rate for specific goods (food products,
-  children's goods, pharmaceuticals)
-- **VAT 0%** - Zero rate for export operations
-- **VAT Exempt** - For exempt operations (medical services, education,
-  etc.)
+-  **VAT 20%** - Standard rate for most goods and services
+-  **VAT 10%** - Reduced rate for specific goods (food products,
+   children's goods, pharmaceuticals)
+-  **VAT 0%** - Zero rate for export operations
+-  **VAT Exempt** - For exempt operations (medical services, education,
+   etc.)
 
 **Fiscal Positions:**
 
-- **Belarus - Domestic** - Automatically applied for Belarus companies
-  with VAT number
-- **Belarus - Export** - Used for export sales (converts 20%/10% VAT to
-  0%)
+-  **Belarus - Domestic** - Automatically applied for Belarus companies
+   with VAT number
+-  **Belarus - Export** - Used for export sales (converts 20%/10% VAT to
+   0%)
 
 Usage
 -----
@@ -128,19 +124,19 @@ When creating invoices or bills:
 
 **Доступные налоги НДС:**
 
-- **НДС 20%** - Стандартная ставка для большинства товаров и услуг
-- **НДС 10%** - Льготная ставка для отдельных товаров (продукты питания,
-  детские товары, медикаменты)
-- **НДС 0%** - Нулевая ставка для экспортных операций
-- **Освобождение от НДС** - Для освобожденных операций (медицинские
-  услуги, образование и т.д.)
+-  **НДС 20%** - Стандартная ставка для большинства товаров и услуг
+-  **НДС 10%** - Льготная ставка для отдельных товаров (продукты
+   питания, детские товары, медикаменты)
+-  **НДС 0%** - Нулевая ставка для экспортных операций
+-  **Освобождение от НДС** - Для освобожденных операций (медицинские
+   услуги, образование и т.д.)
 
 **Фискальные позиции:**
 
-- **Беларусь - Внутренние операции** - Автоматически применяется для
-  белорусских компаний с УНП
-- **Беларусь - Экспорт** - Используется для экспортных продаж
-  (конвертирует НДС 20%/10% в 0%)
+-  **Беларусь - Внутренние операции** - Автоматически применяется для
+   белорусских компаний с УНП
+-  **Беларусь - Экспорт** - Используется для экспортных продаж
+   (конвертирует НДС 20%/10% в 0%)
 
 Bug Tracker
 ===========
@@ -163,7 +159,7 @@ Authors
 Contributors
 ------------
 
-- Aliaksandr Zubik <alexzub@tut.by> (https://artcloud.by)
+-  Aliaksandr Zubik <alexzub@tut.by> (https://artcloud.by)
 
 Maintainers
 -----------
@@ -177,6 +173,14 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-ZubikIT| image:: https://github.com/ZubikIT.png?size=40px
+    :target: https://github.com/ZubikIT
+    :alt: ZubikIT
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-ZubikIT| 
 
 This module is part of the `OCA/l10n-belarus <https://github.com/OCA/l10n-belarus/tree/18.0/l10n_by>`_ project on GitHub.
 

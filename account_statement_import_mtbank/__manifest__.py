@@ -7,6 +7,7 @@
     "category": "Accounting/Localizations",
     "summary": "Import bank statements from MTBank (Belarus) XML format",
     "author": "Aliaksandr Zubik, Odoo Community Association (OCA)",
+    "maintainers": ["ZubikIT"],
     "website": "https://github.com/OCA/l10n-belarus",
     "license": "AGPL-3",
     "countries": ["by"],

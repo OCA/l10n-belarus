@@ -41,12 +41,12 @@ statements with transactions in Odoo.
 
 **Supported features:**
 
-- Import bank statements from MTBank XML files
-- Automatic currency detection (BYN, USD, EUR, etc.)
-- Automatic bank account matching using Belarus IBAN
-- Support for debit and credit transactions
-- Balance validation (opening and closing balances)
-- Multi-account statements support
+-  Import bank statements from MTBank XML files
+-  Automatic currency detection (BYN, USD, EUR, etc.)
+-  Automatic bank account matching using Belarus IBAN
+-  Support for debit and credit transactions
+-  Balance validation (opening and closing balances)
+-  Multi-account statements support
 
 **Table of contents**
 
@@ -84,10 +84,10 @@ To import a bank statement:
 
 The module will automatically:
 
-- Detect the MTBank XML format
-- Extract the account number and currency
-- Create bank statement(s) with transactions
-- Match the journal based on the bank account number
+-  Detect the MTBank XML format
+-  Extract the account number and currency
+-  Create bank statement(s) with transactions
+-  Match the journal based on the bank account number
 
 **Note:** The MTBank XML format contains daily summaries with
 debit/credit turnover totals rather than individual transaction details.
@@ -96,10 +96,10 @@ movements.
 
 **Requirements:**
 
-- Bank journal must be configured with the correct Belarus IBAN account
-  number
-- The ``l10n_by`` and ``l10n_by_bank`` modules must be installed for
-  Belarus account validation
+-  Bank journal must be configured with the correct Belarus IBAN account
+   number
+-  The ``l10n_by`` and ``l10n_by_bank`` modules must be installed for
+   Belarus account validation
 
 Bug Tracker
 ===========
@@ -122,8 +122,8 @@ Authors
 Contributors
 ------------
 
-- Aliaksandr Zubik <alexzub@tut.by>
-  (`artcloud.by <https://artcloud.by>`__)
+-  Aliaksandr Zubik <alexzub@tut.by>
+   (`artcloud.by <https://artcloud.by>`__)
 
 Maintainers
 -----------
@@ -137,6 +137,14 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-ZubikIT| image:: https://github.com/ZubikIT.png?size=40px
+    :target: https://github.com/ZubikIT
+    :alt: ZubikIT
+
+Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-ZubikIT| 
 
 This module is part of the `OCA/l10n-belarus <https://github.com/OCA/l10n-belarus/tree/19.0/account_statement_import_mtbank>`_ project on GitHub.
 

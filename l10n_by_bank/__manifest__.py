@@ -7,6 +7,7 @@
     "category": "Accounting/Localizations",
     "summary": "Belarus bank accounts validation and bank registry",
     "author": "Aliaksandr Zubik, Odoo Community Association (OCA)",
+    "maintainers": ["ZubikIT"],
     "website": "https://github.com/OCA/l10n-belarus",
     "license": "AGPL-3",
     "countries": ["by"],

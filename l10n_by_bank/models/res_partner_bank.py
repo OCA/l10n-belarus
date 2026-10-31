@@ -6,6 +6,11 @@ import re
 from odoo import api, models
 from odoo.exceptions import ValidationError
 
+from odoo.addons.base_iban.models.res_partner_bank import (
+    normalize_iban,
+    validate_iban,
+)
+
 
 class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
@@ -26,68 +31,58 @@ class ResPartnerBank(models.Model):
 
     @api.constrains("acc_number", "partner_id")
     def _check_by_account(self):
-        """Validate Belarus bank account number."""
+        """Validate Belarus bank account numbers."""
         for bank in self:
-            # Check if account is Belarus-related (by country or type)
-            is_by_country = bank.partner_id and bank.partner_id.country_id.code == "BY"
-            is_by_type = bank.acc_type == "by_bank" and bank.acc_number
-
-            if is_by_country or is_by_type:
-                if not self._is_by_account(bank.acc_number):
-                    raise ValidationError(
-                        self.env._(
-                            "Invalid Belarus IBAN format. "
-                            "Expected format: BY + 2 check digits + 4 BIC chars + "
-                            "20 account digits (total 28 characters).\n"
-                            "Example: BY86AKBB30120000080000000933"
-                        )
+            acc_number = bank.acc_number
+            if not acc_number:
+                continue
+            # Only numbers starting with BY are Belarusian: a Belarusian
+            # partner may legitimately hold a foreign bank account.
+            if not normalize_iban(acc_number).upper().startswith("BY"):
+                continue
+            if not self._is_by_account(acc_number):
+                raise ValidationError(
+                    self.env._(
+                        "Invalid Belarus IBAN. Expected structure: "
+                        "BY + 2 check digits + 4 bank code characters + "
+                        "4 balance account digits + 16 account number "
+                        "characters (28 characters in total).\n"
+                        "Example: BY13NBRB3600900000002Z00AB00"
                     )
+                )
 
     @api.model
     def _is_by_account(self, acc_number):
         """
-        Check if account number matches Belarus bank account format (IBAN).
+        Check if account number is a valid Belarusian IBAN.
 
-        Belarus IBAN format:
-        - Total: 28 characters
-        - BY (country code) + 2 check digits + 4 BIC chars + 20 account digits
-        - Example: BY86AKBB30120000080000000933
+        Belarus IBAN structure per the SWIFT registry (28 characters):
+        BY + 2 check digits + 4 bank code characters (letters/digits)
+        + 4 balance account digits + 16 account number characters
+        (letters/digits), e.g. BY13NBRB3600900000002Z00AB00
         """
         if not acc_number:
             return False
 
-        # Remove spaces and convert to uppercase
-        acc_clean = re.sub(r"\s", "", acc_number).upper()
+        acc_clean = normalize_iban(acc_number).upper()
+        if not acc_clean.startswith("BY"):
+            return False
 
-        # Check IBAN format: BY + 2 digits + 4 alphanumeric (BIC) + 20 digits
-        if not re.match(r"^BY\d{2}[A-Z0-9]{4}\d{20}$", acc_clean):
+        # BYkk BBBB AAAA CCCC CCCC CCCC CCCC: the balance account number
+        # part is digits only, letters are allowed in the account number.
+        if not re.match(r"^BY\d{2}[A-Z0-9]{4}\d{4}[A-Z0-9]{16}$", acc_clean):
+            return False
+
+        # The IBAN checksum (mod-97) is validated by base_iban.
+        try:
+            validate_iban(acc_clean)
+        except ValidationError:
             return False
 
         return True
 
-    @api.model
-    def _by_calculate_check_digits(self, bank_code, account_number):
-        """
-        Calculate check digits for Belarus bank account.
-
-        This is a simplified validation. The actual algorithm used by
-        Belarusian banks may differ. This provides basic format validation.
-        """
-        # Combine bank code and account number
-        full_number = bank_code + account_number
-
-        # Calculate modulo 97 (similar to IBAN)
-        # Move BY to the end and replace with numeric values (B=11, Y=34)
-        numeric_string = full_number + "1134"  # B=11, Y=34 for BY
-
-        # Calculate check digits
-        remainder = int(numeric_string) % 97
-        check_digits = 98 - remainder
-
-        return str(check_digits).zfill(2)
-
     def _sanitize_account_number(self, acc_number):
-        """Sanitize Belarus account number by removing spaces."""
+        """Sanitize Belarus account number by removing separators."""
         if self._is_by_account(acc_number):
-            return re.sub(r"\s", "", acc_number).upper()
+            return normalize_iban(acc_number).upper()
         return super()._sanitize_account_number(acc_number)

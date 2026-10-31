@@ -28,13 +28,13 @@ class TestResPartnerBank(TransactionCase):
         bank_account = self.env["res.partner.bank"].create(
             {
                 "partner_id": self.partner.id,
-                "acc_number": "BY86AKBB30120000080000000933",
+                "acc_number": "BY93AKBB30120000080000000933",
                 "bank_id": self.bank.id,
             }
         )
         self.assertEqual(bank_account.acc_type, "by_bank")
         self.assertEqual(
-            bank_account.sanitized_acc_number, "BY86AKBB30120000080000000933"
+            bank_account.sanitized_acc_number, "BY93AKBB30120000080000000933"
         )
 
     def test_valid_by_account_with_spaces(self):
@@ -42,14 +42,57 @@ class TestResPartnerBank(TransactionCase):
         bank_account = self.env["res.partner.bank"].create(
             {
                 "partner_id": self.partner.id,
-                "acc_number": "BY86 AKBB 3012 0000 0800 0000 0933",
+                "acc_number": "BY93 AKBB 3012 0000 0800 0000 0933",
                 "bank_id": self.bank.id,
             }
         )
         self.assertEqual(bank_account.acc_type, "by_bank")
         self.assertEqual(
-            bank_account.sanitized_acc_number, "BY86AKBB30120000080000000933"
+            bank_account.sanitized_acc_number, "BY93AKBB30120000080000000933"
         )
+
+    def test_valid_by_account_with_letters(self):
+        """Test that letters in the account number are accepted.
+
+        BY13NBRB3600900000002Z00AB00 is the official example from the
+        SWIFT IBAN registry and carries letters in the account part.
+        """
+        bank_account = self.env["res.partner.bank"].create(
+            {
+                "partner_id": self.partner.id,
+                "acc_number": "BY13NBRB3600900000002Z00AB00",
+                "bank_id": self.bank.id,
+            }
+        )
+        self.assertEqual(bank_account.acc_type, "by_bank")
+        self.assertEqual(
+            bank_account.sanitized_acc_number, "BY13NBRB3600900000002Z00AB00"
+        )
+
+    def test_valid_by_account_with_trailing_letter(self):
+        """Test that a letter at the end of the account is accepted."""
+        bank_account = self.env["res.partner.bank"].create(
+            {
+                "partner_id": self.partner.id,
+                "acc_number": "BY69AKBB3012000008000000093A",
+                "bank_id": self.bank.id,
+            }
+        )
+        self.assertEqual(bank_account.acc_type, "by_bank")
+        self.assertEqual(
+            bank_account.sanitized_acc_number, "BY69AKBB3012000008000000093A"
+        )
+
+    def test_invalid_by_account_bad_checksum(self):
+        """Test that account with wrong IBAN checksum is rejected."""
+        with self.assertRaises(ValidationError):
+            self.env["res.partner.bank"].create(
+                {
+                    "partner_id": self.partner.id,
+                    "acc_number": "BY86AKBB30120000080000000933",
+                    "bank_id": self.bank.id,
+                }
+            )
 
     def test_invalid_by_account_too_short(self):
         """Test that too short account number is rejected."""
@@ -57,24 +100,13 @@ class TestResPartnerBank(TransactionCase):
             self.env["res.partner.bank"].create(
                 {
                     "partner_id": self.partner.id,
-                    "acc_number": "BY86AKBB301200000800",
+                    "acc_number": "BY93AKBB301200000800",
                     "bank_id": self.bank.id,
                 }
             )
 
-    def test_invalid_by_account_wrong_prefix(self):
-        """Test that account without BY prefix is rejected."""
-        with self.assertRaises(ValidationError):
-            self.env["res.partner.bank"].create(
-                {
-                    "partner_id": self.partner.id,
-                    "acc_number": "XX86AKBB30120000080000000933",
-                    "bank_id": self.bank.id,
-                }
-            )
-
-    def test_invalid_by_account_letters_in_digits(self):
-        """Test that account with letters where digits expected is rejected."""
+    def test_invalid_by_account_letters_in_check_digits(self):
+        """Test that letters in the check digits are rejected."""
         with self.assertRaises(ValidationError):
             self.env["res.partner.bank"].create(
                 {
@@ -84,10 +116,20 @@ class TestResPartnerBank(TransactionCase):
                 }
             )
 
+    def test_foreign_account_for_by_partner(self):
+        """Test that a Belarusian partner can hold a foreign account."""
+        bank_account = self.env["res.partner.bank"].create(
+            {
+                "partner_id": self.partner.id,
+                "acc_number": "LT121000011101001000",
+            }
+        )
+        self.assertEqual(bank_account.acc_type, "iban")
+
     def test_detect_by_account_type(self):
         """Test automatic detection of Belarus account type."""
         acc_type = self.env["res.partner.bank"].retrieve_acc_type(
-            "BY86AKBB30120000080000000933"
+            "BY93AKBB30120000080000000933"
         )
         self.assertEqual(acc_type, "by_bank")
 

@@ -13,11 +13,11 @@
     "countries": ["by"],
     "depends": [
         "account",
+        "base_iban",
         "l10n_by",
     ],
     "data": [
         "data/res_bank_data.xml",
-        "views/res_partner_bank_views.xml",
     ],
     "installable": True,
     "auto_install": False,

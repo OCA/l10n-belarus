@@ -34,7 +34,8 @@ Belarus - Banks
 
 This module adds support for Belarus bank accounts:
 
--  Bank account number validation (28 characters format)
+-  Bank account number validation: structure per the SWIFT IBAN registry
+   and the IBAN checksum (mod-97)
 -  Registry of Belarus banks with BIC codes
 -  Automatic account type detection
 -  Proper formatting and sanitization
@@ -51,18 +52,17 @@ No additional configuration is required. The module automatically:
 
 -  Adds Belarus banks to the bank registry
 -  Enables bank account validation for Belarus
--  Provides format hints in partner bank account forms
 
 Usage
 =====
 
 When creating a bank account for a Belarus company or partner:
 
-1. The system automatically detects Belarus account format (BY + 26
-   digits)
-2. Validates the account number structure
-3. Provides helpful format hints in the UI
-4. Sanitizes input by removing spaces
+1. The system automatically detects the Belarus account format (BY + 2
+   check digits + 4 bank code characters + 4 balance account digits + 16
+   account number characters, 28 characters in total)
+2. Validates the account number structure and the IBAN checksum
+3. Sanitizes the input by stripping every non-alphanumeric character
 
 Bug Tracker
 ===========

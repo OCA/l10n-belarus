@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Belarus bank account customizations -->
+    <!--
+    View extensions can be added here in the future.
+    For now, validation is handled in the model.
+    -->
+</odoo>

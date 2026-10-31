@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_by_bank
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_by_bank
+#: model:ir.model,name:l10n_by_bank.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr ""
+
+#. module: l10n_by_bank
+#. odoo-python
+#: code:addons/l10n_by_bank/models/res_partner_bank.py:0
+msgid "Belarus Bank Account"
+msgstr ""
+
+#. module: l10n_by_bank
+#: model:ir.model.fields,field_description:l10n_by_bank.field_res_partner_bank__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_by_bank
+#: model:ir.model.fields,field_description:l10n_by_bank.field_res_partner_bank__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_by_bank
+#. odoo-python
+#: code:addons/l10n_by_bank/models/res_partner_bank.py:0
+msgid ""
+"Invalid Belarus IBAN format. Expected format: BY + 2 check digits + 4 BIC chars + 20 account digits (total 28 characters).\n"
+"Example: BY86AKBB30120000080000000933"
+msgstr ""

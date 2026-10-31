@@ -7,7 +7,7 @@
             <ErrorText />
             <StatementByDay>
                 <StatementByDayRow>
-                    <Account>BY09MTBK30120001093300069943</Account>
+                    <Account>BY49MTBK30120001111100000000</Account>
                     <CurrIso>BYN</CurrIso>
                     <BIC>MTBKBY22</BIC>
                     <OpeningBalance>22053.01</OpeningBalance>
@@ -30,7 +30,7 @@
                     <STAMP_CENTER>16/02/2026</STAMP_CENTER>
                 </StatementByDayRow>
                 <StatementByDayRow>
-                    <Account>BY09MTBK30120001093300069943</Account>
+                    <Account>BY49MTBK30120001111100000000</Account>
                     <CurrIso>BYN</CurrIso>
                     <BIC>MTBKBY22</BIC>
                     <OpeningBalance>22053.01</OpeningBalance>
@@ -53,7 +53,7 @@
                     <STAMP_CENTER>16/02/2026</STAMP_CENTER>
                 </StatementByDayRow>
                 <StatementByDayRow>
-                    <Account>BY09MTBK30120001093300069943</Account>
+                    <Account>BY49MTBK30120001111100000000</Account>
                     <CurrIso>BYN</CurrIso>
                     <BIC>MTBKBY22</BIC>
                     <OpeningBalance>21340.66</OpeningBalance>

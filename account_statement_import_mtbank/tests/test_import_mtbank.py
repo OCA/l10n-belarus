@@ -5,6 +5,7 @@ import base64
 from datetime import date
 from os import path
 
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -39,7 +40,7 @@ class TestMTBankImport(AccountTestInvoicingCommon):
                 "code": "MTBK",
                 "type": "bank",
                 "currency_id": cls.currency_byn.id,
-                "bank_acc_number": "BY09MTBK30120001093300069943",
+                "bank_acc_number": "BY49MTBK30120001111100000000",
             }
         )
 
@@ -112,7 +113,7 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         # Verify tuple structure
         currency_code, account_number, stmts_vals = result[0]
         self.assertEqual(currency_code, "BYN")
-        self.assertEqual(account_number, "BY09MTBK30120001093300069943")
+        self.assertEqual(account_number, "BY49MTBK30120001111100000000")
         self.assertIsInstance(stmts_vals, list)
         self.assertEqual(len(stmts_vals), 1)
 
@@ -139,3 +140,51 @@ class TestMTBankImport(AccountTestInvoicingCommon):
         self.assertEqual(credit_tx["amount"], 1000.00)
         self.assertEqual(credit_tx["date"], date(2025, 6, 15))
         self.assertIn("unique_import_id", credit_tx)
+
+    def _import_fixture(self, filename):
+        """Import a statement fixture through the wizard."""
+        testfile = path.join(path.dirname(__file__), "files", filename)
+        with open(testfile, "rb") as datafile:
+            datafile_contents = datafile.read()
+
+        wizard = self.env["account.statement.import"].create(
+            {
+                "statement_file": base64.b64encode(datafile_contents),
+                "statement_filename": filename,
+            }
+        )
+        return wizard._import_file()
+
+    def test_mtbank_bad_date_rejected(self):
+        """Test that a row with a missing date is not imported."""
+        with self.assertRaises(UserError):
+            self._import_fixture("test_mtbank_bad_date.xml")
+
+    def test_mtbank_bad_balance_rejected(self):
+        """Test that a row whose balances do not match is not imported."""
+        with self.assertRaises(UserError):
+            self._import_fixture("test_mtbank_bad_balance.xml")
+
+    def test_mtbank_corrected_amount_conflict(self):
+        """Test that a period re-imported with a new amount is refused."""
+        self._import_fixture("test_mtbank.xml")
+
+        with self.assertRaises(UserError) as cm:
+            self._import_fixture("test_mtbank_corrected_turnover.xml")
+        self.assertIn("BY49MTBK30120001111100000000-20250612-DEBIT", str(cm.exception))
+
+    def test_mtbank_reimport_same_file(self):
+        """Test that re-importing the same file does not duplicate lines."""
+        self._import_fixture("test_mtbank.xml")
+        # Must not raise: the base module filters out known transactions
+        self._import_fixture("test_mtbank.xml")
+
+        line_model = self.env["account.bank.statement.line"]
+        for unique_import_id in (
+            "BY49MTBK30120001111100000000-20250612-DEBIT",
+            "BY49MTBK30120001111100000000-20250615-CREDIT",
+        ):
+            self.assertEqual(
+                line_model.search_count([("unique_import_id", "=", unique_import_id)]),
+                1,
+            )

@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addon-l10n_by_bank"
+dynamic = ["version"]
+description = "Belarus - Banks"
+
+[project.optional-dependencies]
+test = []
+
+[build-system]
+requires = ["whool"]
+build-backend = "whool.buildapi"
